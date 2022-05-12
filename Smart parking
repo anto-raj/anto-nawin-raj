@@ -1,0 +1,186 @@
+echo "# anto-nawin-raj" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/anto-raj/anto-nawin-raj.git
+git push -u origin main
+#include <Servo.h>
+int ServoPin = 3;
+Servo Servo1;
+int irsensor1 = A0;
+int irsensor2 = A1;
+int led1 = 4;
+int led2 = 5;
+int led3 = 6;
+int led4 = 7 ;
+
+int led5 = 10 ; //gren
+int led6 = 11 ; // red
+
+int a = 0; //cars counting
+int b = 15;//total car parking
+void setup() {
+  Serial.begin (9600);
+  //configure pin modes
+  Servo1.attach(ServoPin);
+  pinMode(irsensor1 , INPUT);
+  pinMode(irsensor2 , INPUT);
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  pinMode(led3, OUTPUT);
+  pinMode(led4, OUTPUT);
+  pinMode(led5, OUTPUT);
+  pinMode(led6, OUTPUT);
+
+
+}
+void loop() {
+  int readsen1 = digitalRead( irsensor1 );
+  int readsen2 = digitalRead( irsensor2 );
+
+  int c = (b - a); // free space 
+  Serial.print("free space : ");
+  Serial.println(c);
+  if (readsen1 == LOW ) //&& output
+  {
+    if (c >= 1 )
+    {
+      Servo1.write(90);// gate open
+      digitalWrite(led5, HIGH);
+      digitalWrite(led6, LOW );
+      Serial.print("entring ");
+      delay(3000);// moving time
+      a++;
+      Servo1.write(0);// gate close
+      Serial.print("entred ");
+      digitalWrite(led5, LOW );
+      
+
+    }
+    else {
+      for (int i = 0; i <= 5; i++) {
+        digitalWrite(led5, LOW );
+        digitalWrite(led6, HIGH  );
+
+        Serial.print("no free space ");
+        delay(500);
+        digitalWrite(led6, LOW);
+        delay(500);
+      }
+    }
+
+  }
+ 
+  if ( readsen2 == LOW )
+  {
+    Servo1.write(90);
+    digitalWrite(led5, HIGH);
+    digitalWrite(led6, LOW );
+    Serial.print("leaving");
+    delay(3000);
+    a--;
+    Servo1.write(0);
+    Serial.print(" left ");
+    
+    digitalWrite(led5, LOW );
+  }
+  if ( c == 0) {
+    digitalWrite(led1, LOW);
+    digitalWrite(led2, LOW );
+    digitalWrite(led3, LOW );
+    digitalWrite(led4, LOW );
+  }
+  if ( c == 1) {
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, LOW );
+    digitalWrite(led3, LOW );
+    digitalWrite(led4, LOW );
+  }
+  if ( c == 2) {
+    digitalWrite(led1, LOW);
+    digitalWrite(led2, HIGH );
+    digitalWrite(led3, LOW );
+    digitalWrite(led4, LOW );
+  }
+  if ( c == 3) {
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, HIGH);
+    digitalWrite(led3, LOW );
+    digitalWrite(led4, LOW );
+  }
+  if ( c == 4) {
+    digitalWrite(led1, LOW);
+    digitalWrite(led2, LOW );
+    digitalWrite(led3, HIGH);
+    digitalWrite(led4, LOW );
+  }
+  if ( c == 5) {
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, LOW );
+    digitalWrite(led3, HIGH );
+    digitalWrite(led4, LOW );
+  }
+  if ( c == 6) {
+    digitalWrite(led1, LOW);
+    digitalWrite(led2, HIGH );
+    digitalWrite(led3, HIGH);
+    digitalWrite(led4, LOW );
+  }
+  if ( c == 7) {
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, HIGH);
+    digitalWrite(led3, HIGH);
+    digitalWrite(led4, LOW );
+  }
+  if ( c == 8) {
+    digitalWrite(led1, LOW);
+    digitalWrite(led2, LOW );
+    digitalWrite(led3, LOW );
+    digitalWrite(led4, HIGH);
+  }
+  if ( c == 9) {
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, LOW );
+    digitalWrite(led3, LOW );
+    digitalWrite(led4, HIGH );
+  }
+  if ( c == 10) {
+    digitalWrite(led1, LOW);
+    digitalWrite(led2, HIGH);
+    digitalWrite(led3, LOW );
+    digitalWrite(led4, HIGH);
+  }
+  if ( c == 11) {
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, HIGH );
+    digitalWrite(led3, LOW );
+    digitalWrite(led4, HIGH);
+  }
+  if ( c == 12) {
+    digitalWrite(led1, LOW);
+    digitalWrite(led2, LOW );
+    digitalWrite(led3, HIGH);
+    digitalWrite(led4, HIGH);
+  }
+  if ( c == 13) {
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, LOW );
+    digitalWrite(led3, HIGH);
+    digitalWrite(led4, HIGH);
+  }
+  if ( c == 14) {
+    digitalWrite(led1, LOW);
+    digitalWrite(led2, HIGH);
+    digitalWrite(led3, HIGH);
+    digitalWrite(led4, HIGH);
+  }
+  if ( c == 15) {
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, HIGH);
+    digitalWrite(led3, HIGH);
+    digitalWrite(led4, HIGH);
+  }
+
+
+}
